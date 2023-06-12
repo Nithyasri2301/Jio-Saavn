@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html class="Nithy">
+
+<head>
+   <title>Music player</title>
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+   <style>
+      .Nithy {
+         margin: 0;
+         padding: 0;
+         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+         box-sizing: border-box;
+      }
+
+      /* .container {
+         background: #f607c5;
+         /* width: 100%;
+         height: 99vh; 
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         flex-wrap: wrap;
+      } */
+
+      .Musicplayer {
+         background: white;
+         width: 400px;
+         height: 40%;
+         padding: 25px 35px;
+         text-align: center;
+         border-radius: 20px;
+      }
+
+      .img {
+         width: 300px;
+      }
+
+      #Audio {
+         appearance: none;
+         width: 100%;
+         height: 6px;
+         background: #f607c5;
+         border-radius: 4px;
+      }
+
+      #Audio::-webkit-slider-thumb {
+         appearance: none;
+         background: #f607c5;
+         width: 30px;
+         height: 30px;
+         border-radius: 50%;
+         border: 8px solid #9fa8b1;
+         box-shadow: 0 5px 5px rgba (255, 26, 26, 0.22);
+      }
+
+      .controls {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+      }
+
+      .controls div {
+         width: 30px;
+         height: 30px;
+         margin: 20px;
+         background: #fff;
+         display: inline-flex;
+         align-items: center;
+         justify-content: center;
+         border-radius: 50%;
+         color: #f607c5;
+         box-shadow: 0 10px 20px rgba(255, 26, 26, 0.22);
+         cursor: pointer;
+      }
+
+      .controls div:nth-child(2) {
+         transform: scale(1.5);
+         background-color: #f607c5;
+         color: #fff;
+      }
+
+      .icon {
+         width: 100%;
+         height: 100%;
+         margin-top: 10%;
+         display: flex;
+         justify-content: space-evenly;
+         font-size: xx-large;
+
+      }
+
+      .icon .fa-solid {
+         /* margin-left: 200px; */
+
+         border-radius: 10px;
+
+         padding: 11px;
+
+         color: #f607c5;
+         background-color: #fff;
+         transition: 1s ease;
+
+      }
+
+      .icon .fa-solid:hover {
+         transform: rotate(360deg);
+         color: black;
+      }
+
+      .head {
+         display: flex;
+
+      }
+
+      input[type='text'] {
+         margin: 10px 10px;
+         height: 25px;
+         border-radius: 10px;
+         border-color: #f607c5;
+      }
+
+      ::placeholder {
+         color: #f607c5;
+         padding-left: 10px;
+      }
+
+      .fa-magnifying-glass {
+         margin-top: 10px;
+         /* width: 50px; */
+         padding: 8px 8px;
+         border-radius: 10px;
+         height: 15px;
+         background-color: #fff;
+      }
+
+     @media screen and (max-width:1000px) {
+      .Musicplayer{
+         margin-top: 40%;
+         width:60%;
+         height: 40.1vh;
+      }
+     }
+   </style>
+</head>
+
+<body style="background-color: #f607c5; overflow: hidden;">
+   <div class="head">
+      <h1 style="color:white;width: 200%; background-color: #f607c5;">Music</h1>
+      <input type="text" placeholder="Searching"><i class="fa-solid fa-magnifying-glass"></i>
+   </div>
+<div class="container">
+   <center>
+      <div class="Musicplayer">
+         <img src="th.jpg" class="img" alt="logo">
+         <h1 style="color: #f607c5;">Title|album</h1>
+         <i>Unakkul Nanne X Nenjil jil jil</i>
+
+         <audio id="song">
+            <source src="Audio/15093c7d-c817-4a67-ad49-0a332f270c4e.mp3" type="audio/mpeg">
+         </audio>
+         <input type="range" value="0" id="Audio">
+         <div class="controls">
+            <div><i class="fa-solid fa-backward"></i></div>
+            <div onclick="playpause()"><i class="fa-solid fa-play" id="ctrlicon"></i></div>
+            <div><i class="fa-solid fa-forward"></i></div>
+         </div> </div>
+   </center>
+   
+
+
+   <div class="icon">
+      <i class="fa-solid fa-house"></i>
+      <i class="fa-solid fa-music"></i>
+      <i class="fa-solid fa-heart"></i>
+      <i class="fa-solid fa-layer-group"></i>
+      <i class="fa-solid fa-download"></i>
+   </div>
+
+   </div></div>
+   <script>
+      let Audio = document.getElementById("Audio");
+      let song = document.getElementById("song");
+      let ctrlicon = document.getElementById("ctrlicon");
+
+      song.onloadedmetadata = function () {
+         Audio.max = song.duration;
+         Audio.value = song.currentTime;
+
+      }
+      function playpause() {
+         if (ctrlicon.classList.contains("fa-pause")) {
+            song.pause();
+            ctrlicon.classList.remove("fa-pause");
+            ctrlicon.classList.add("fa-play");
+         }
+         else {
+            song.play();
+            ctrlicon.classList.add("fa-pause");
+            ctrlicon.classList.remove("fa-play");
+         }
+      }
+      if (song.play()) {
+         setInterval(() => {
+            Audio.value = song.currentTime;
+         }, 500);
+      }
+      Audio.onchange = function () {
+         song.play();
+         song.currentTime = Audio.value;
+         ctrlicon.classList.add("fa-pause");
+         ctrlicon.classList.remove("fa-play");
+      }
+
+   </script>
+
+
+
+</body>
+
+</html>
